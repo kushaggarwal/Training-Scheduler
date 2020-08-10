@@ -1,16 +1,16 @@
 import React from "react";
-import { Card, Icon, Grid, Divider } from "semantic-ui-react";
+import { Card, Icon, Grid, Divider, Button, Rating } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 
 const TrainingCard = (props) => {
   console.log(props.prog);
   const color = [
-    "olive",
-    "red",
-    "orange",
-    "yellow",
+    "#6435c9",
+    "#6435c9",
+    "#f2711c",
     "blue",
-    "green",
+    "yellow",
+    "orange",
     "teal",
     "violet",
     "purple",
@@ -37,58 +37,61 @@ const TrainingCard = (props) => {
   var year = date[0];
   var month = months[parseInt(date[1])];
   return (
-    // <Grid.Column>
-    //   <Grid>
-    //     <Grid.Column width={5} color={color[props.prog.ID]}>
-    //       <div
-    //         style={{
-    //           height: "150px",
-    //           borderRadius: "5px",
-    //         }}
-    //       ></div>
-    //     </Grid.Column>
-    //     <Grid.Column width={11}>asbavs</Grid.Column>
-    //   </Grid>
-    // </Grid.Column>
-    <Card color={color[props.prog.ID]}>
-      <Grid>
-        <Grid.Column width={6}>
-          <div
-            style={{
-              height: "100px",
-              width: "130px",
-              textAlign: "center",
-              marginTop: "80px",
-            }}
-          >
-            <Icon name="code" size="huge" />
-            {/* <h1>
-              {day} <br></br> {month}
-            </h1> */}
-          </div>
-        </Grid.Column>
-        <Grid.Column width={10}>
-          <div style={{ padding: "20px 0px" }}>
-            <h3>Title</h3>
-            <p>{props.prog.Name}</p>
-            <h4>Description</h4>
-            <p>{props.prog.Description}</p>
-            <Grid>
-              <Grid.Column width={8}>
-                <h4>Duration</h4>
-                <p>{props.prog.Duration}</p>
-              </Grid.Column>
-              <Grid.Column width={8}>
-                <h4>Date</h4>
-                <p>
-                  {day} {month}
-                </p>
-              </Grid.Column>
-            </Grid>
-          </div>
-        </Grid.Column>
-      </Grid>
-    </Card>
+    <div
+      style={{
+        border: "0.25px solid lightgrey",
+        borderRadius: "10px",
+        width: "300px",
+        margin: "20px 20px",
+      }}
+    >
+      <div style={{ margin: "30px" }}>
+        <Grid columns={2}>
+          <Grid.Column>
+            <h5 style={{ color: "grey" }}>CODING</h5>
+          </Grid.Column>
+          <Grid.Column>
+            <Rating icon="star" defaultRating={3} maxRating={4} />
+          </Grid.Column>
+        </Grid>
+
+        <h2>{props.prog.Name}</h2>
+        <p style={{ fontSize: "12pt" }}>{props.prog.Description}</p>
+        <Grid columns="equal">
+          <Grid.Column>
+            <p style={{ fontSize: "8pt", textAlign: "center" }}>DATE</p>
+            <h5
+              style={{
+                textAlign: "center",
+                marginTop: "10px",
+              }}
+            >
+              {day} {month}
+            </h5>
+          </Grid.Column>
+          <Grid.Column>
+            <p style={{ fontSize: "8pt", textAlign: "center" }}>DURATION</p>
+            <h5
+              style={{
+                textAlign: "center",
+                marginTop: "10px",
+              }}
+            >
+              {props.prog.Duration}
+            </h5>
+          </Grid.Column>
+          <Grid.Column>
+            <p style={{ fontSize: "8pt", textAlign: "center" }}>
+              CATEGORY{" "}
+              <Icon name="code" size="big" style={{ marginTop: "10px" }}></Icon>
+            </p>
+          </Grid.Column>
+        </Grid>
+        <Button fluid color="blue" style={{ marginTop: "20px" }}>
+          Participate
+        </Button>
+      </div>
+    </div>
   );
 };
 

@@ -1,0 +1,43 @@
+<Card color={color[props.prog.ID]}>
+        <Grid>
+          <Grid.Column width={6}>
+            <div
+              style={{
+                height: "100px",
+                width: "130px",
+                textAlign: "center",
+                marginTop: "80px",
+              }}
+            >
+              <Icon name="code" size="huge" />
+              {/* <h1>
+              {day} <br></br> {month}
+            </h1> */}
+            </div>
+          </Grid.Column>
+          <Grid.Column width={10}>
+            <div style={{ padding: "20px 0px" }}>
+              <h3>Title</h3>
+              <p>{props.prog.Name}</p>
+              <h4>Description</h4>
+              <p>{props.prog.Description}</p>
+              <Grid>
+                <Grid.Column width={8}>
+                  <h4>Duration</h4>
+                  <p>{props.prog.Duration}</p>
+                </Grid.Column>
+                <Grid.Column width={8}>
+                  <h4>Date</h4>
+                  <p>
+                    {day} {month}
+                  </p>
+                </Grid.Column>
+              </Grid>
+            </div>
+          </Grid.Column>
+        </Grid>
+      </Card>
+      <br></br>
+
+
+      
