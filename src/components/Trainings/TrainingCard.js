@@ -1,8 +1,12 @@
 import React from "react";
 import { Card, Icon, Grid, Divider, Button, Rating } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
+import { MARK_ENROLLED } from "../../graphql/mutations";
+import { useMutation } from "@apollo/react-hooks";
 
 const TrainingCard = (props) => {
+  const [markEnrolled] = useMutation(MARK_ENROLLED);
+
   const months = [
     "any",
     "Jan",
@@ -18,10 +22,24 @@ const TrainingCard = (props) => {
     "Nov",
     "Dec",
   ];
+
   var date = props.prog.Date.split("-");
   var day = date[2];
   var year = date[0];
   var month = months[parseInt(date[1])];
+
+  function OnParticipate(id) {
+    let array = props.enrolled;
+    array.push(id);
+    const variables = {
+      ID: props.user["ID"],
+      enrolled: {
+        id: array,
+      },
+    };
+    markEnrolled({ variables });
+  }
+
   return (
     <div
       style={{
@@ -75,17 +93,30 @@ const TrainingCard = (props) => {
         </Grid>
         {props.isAdmin ? (
           <div>
-            <Button fluid color="blue" style={{ marginTop: "20px" }}>
-              Participate
+            <Button fluid color="red" style={{ marginTop: "20px" }}>
+              View Details
             </Button>
             <Button fluid color="green" style={{ marginTop: "10px" }}>
               Edit
             </Button>
           </div>
+        ) : props.isEnrolled ? (
+          <div>
+            <Button fluid color="red" style={{ marginTop: "20px" }}>
+              View Details
+            </Button>
+          </div>
         ) : (
-          <Button fluid color="blue" style={{ marginTop: "20px" }}>
-            Participate
-          </Button>
+          <div>
+            <Button
+              fluid
+              color="blue"
+              style={{ marginTop: "20px" }}
+              onClick={() => OnParticipate(props.prog.ID)}
+            >
+              Participate
+            </Button>
+          </div>
         )}
       </div>
     </div>

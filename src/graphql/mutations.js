@@ -12,7 +12,7 @@ export const ADD_USER = gql`
 `;
 
 export const MARK_ENROLLED = gql`
-  mutation($ID: String!, $enrolled: JSON!) {
+  mutation($ID: String!, $enrolled: jsonb!) {
     update_Users_by_pk(pk_columns: { ID: $ID }, _set: { enrolled: $enrolled }) {
       ID
       enrolled

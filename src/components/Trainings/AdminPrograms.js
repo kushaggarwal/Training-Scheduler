@@ -2,13 +2,11 @@ import React from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { Dimmer, Loader, Grid } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
-import { GET_BOTH_TRAININGS } from "../../graphql/queries";
+import { GET_TRAININGS } from "../../graphql/queries";
 import TrainingCard from "./TrainingCard";
 
-const AllPrograms = (props) => {
-  const { data, loading, error } = useQuery(GET_BOTH_TRAININGS, {
-    variables: { enrolled: props.enrolled["id"] },
-  });
+const AdminPrograms = (props) => {
+  const { data, loading, error } = useQuery(GET_TRAININGS);
 
   if (loading)
     return (
@@ -23,25 +21,13 @@ const AllPrograms = (props) => {
   return (
     <div>
       <Grid style={{ marginTop: "30px", marginLeft: "40px" }} columns={2}>
-        {data["nonParticipatedTrainings"].map((item, index) => {
+        {data.Training_Programs.map((item, index) => {
           return (
             <TrainingCard
-              enrolled={props.enrolled["id"]}
               prog={item}
               key={index}
               isAdmin={props.user["IsAdmin"]}
               user={props.user}
-            />
-          );
-        })}
-        {data["participatedTrainings"].map((item, index) => {
-          return (
-            <TrainingCard
-              enrolled={props.enrolled["id"]}
-              prog={item}
-              key={index}
-              isEnrolled={true}
-              isAdmin={props.user["IsAdmin"]}
             />
           );
         })}
@@ -50,4 +36,4 @@ const AllPrograms = (props) => {
   );
 };
 
-export default AllPrograms;
+export default AdminPrograms;

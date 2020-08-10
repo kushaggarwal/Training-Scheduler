@@ -23,7 +23,38 @@ export const GET_ENROLLED = gql`
 export const GET_PARTICIPATED_TRAININGS = gql`
   query($enrolled: [Int!]) {
     Training_Programs(where: { ID: { _in: $enrolled } }) {
+      Categories
+      Description
+      Duration
+      ID
       Name
+      Date
+    }
+  }
+`;
+
+export const GET_BOTH_TRAININGS = gql`
+  query($enrolled: [Int!]) {
+    participatedTrainings: Training_Programs(
+      where: { ID: { _in: $enrolled } }
+    ) {
+      Categories
+      Description
+      Duration
+      ID
+      Name
+      Date
+    }
+
+    nonParticipatedTrainings: Training_Programs(
+      where: { ID: { _nin: $enrolled } }
+    ) {
+      Categories
+      Description
+      Duration
+      ID
+      Name
+      Date
     }
   }
 `;
