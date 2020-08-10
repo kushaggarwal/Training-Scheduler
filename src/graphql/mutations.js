@@ -10,3 +10,12 @@ export const ADD_USER = gql`
     }
   }
 `;
+
+export const MARK_ENROLLED = gql`
+  mutation($ID: String!, $enrolled: JSON!) {
+    update_Users_by_pk(pk_columns: { ID: $ID }, _set: { enrolled: $enrolled }) {
+      ID
+      enrolled
+    }
+  }
+`;

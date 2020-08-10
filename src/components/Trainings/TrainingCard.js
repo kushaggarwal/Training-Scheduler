@@ -3,21 +3,8 @@ import { Card, Icon, Grid, Divider, Button, Rating } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 
 const TrainingCard = (props) => {
-  console.log(props.prog);
-  const color = [
-    "#6435c9",
-    "#6435c9",
-    "#f2711c",
-    "blue",
-    "yellow",
-    "orange",
-    "teal",
-    "violet",
-    "purple",
-    "pink",
-    "brown",
-  ];
   const months = [
+    "any",
     "Jan",
     "Feb",
     "Mar",
@@ -32,7 +19,6 @@ const TrainingCard = (props) => {
     "Dec",
   ];
   var date = props.prog.Date.split("-");
-  console.log(date);
   var day = date[2];
   var year = date[0];
   var month = months[parseInt(date[1])];
@@ -41,14 +27,14 @@ const TrainingCard = (props) => {
       style={{
         border: "0.25px solid lightgrey",
         borderRadius: "10px",
-        width: "300px",
-        margin: "20px 20px",
+        width: "350px",
+        margin: "20px 40px",
       }}
     >
-      <div style={{ margin: "30px" }}>
+      <div style={{ margin: "20px" }}>
         <Grid columns={2}>
           <Grid.Column>
-            <h5 style={{ color: "grey" }}>CODING</h5>
+            <h5 style={{ color: "grey" }}>{props.prog.Categories}</h5>
           </Grid.Column>
           <Grid.Column>
             <Rating icon="star" defaultRating={3} maxRating={4} />
@@ -87,9 +73,20 @@ const TrainingCard = (props) => {
             </p>
           </Grid.Column>
         </Grid>
-        <Button fluid color="blue" style={{ marginTop: "20px" }}>
-          Participate
-        </Button>
+        {props.isAdmin ? (
+          <div>
+            <Button fluid color="blue" style={{ marginTop: "20px" }}>
+              Participate
+            </Button>
+            <Button fluid color="green" style={{ marginTop: "10px" }}>
+              Edit
+            </Button>
+          </div>
+        ) : (
+          <Button fluid color="blue" style={{ marginTop: "20px" }}>
+            Participate
+          </Button>
+        )}
       </div>
     </div>
   );
