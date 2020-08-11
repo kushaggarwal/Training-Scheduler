@@ -57,62 +57,83 @@ const Description = () => {
 
   return (
     <div style={{ margin: "70px" }}>
-      <Grid>
-        <Grid.Column width={8}>
-          <Header as="h2">Course Description</Header>
-
-          <Form onSubmit={handleSubmit}>
-            <Form.Field
-              id="form-input-control-first-name"
-              control={Input}
-              label="Name"
-              placeholder="Name"
-              onChange={(event) => setName(event.target.value)}
-            />
-            <Form.Field
-              control={Select}
-              label="Category"
-              options={options}
-              placeholder="Category"
-              onChange={(e, { value }) => setCategory(value)}
-            />
-
-            <Form.Field
-              id="form-textarea-control-opinion"
-              control={TextArea}
-              label="Description"
-              placeholder="Description"
-              onChange={(event) => setDescription(event.target.value)}
-            />
-            <Form.Group widths="equal">
-              <Form.Input
-                placeholder="Duration in Hours"
-                label="Duration"
-                onChange={(event) => setDuration(event.target.value)}
-              />
-
-              <Form.Input
-                placeholder="Date"
-                label="Date of Training"
-                type="date"
-                onChange={(event) => setDate(event.target.value)}
-              />
-            </Form.Group>
+      <div style={{ margin: "60px 100px", border: "1px solid #b1b0b0" }}>
+        <Grid>
+          <Grid.Column
+            width={2}
+            style={{ backgroundColor: "#0d47a1" }}
+          ></Grid.Column>
+          <Grid.Column width={14}>
             {submit ? (
-              <Button type="submit" width={4} disabled>
-                Save
-              </Button>
+              <AddSession id={id} />
             ) : (
-              <Button type="submit" width={4}>
-                Save
-              </Button>
+              <div
+                style={{
+                  fontFamily: "Avenir",
+                  fontStyle: "normal",
+                  fontWeight: "500",
+                  fontSize: "30px",
+                  lineHeight: "50px",
+                  margin: "10px",
+                  color: "#565659",
+                }}
+              >
+                Course Description
+                <div style={{ margin: "20px" }}>
+                  <Form onSubmit={handleSubmit}>
+                    <Form.Field
+                      id="form-input-control-first-name"
+                      control={Input}
+                      label="Name"
+                      placeholder="Name"
+                      onChange={(event) => setName(event.target.value)}
+                    />
+                    <Form.Field
+                      control={Select}
+                      label="Category"
+                      options={options}
+                      placeholder="Category"
+                      onChange={(e, { value }) => setCategory(value)}
+                    />
+
+                    <Form.Field
+                      id="form-textarea-control-opinion"
+                      control={TextArea}
+                      label="Description"
+                      placeholder="Description"
+                      onChange={(event) => setDescription(event.target.value)}
+                    />
+                    <Form.Group widths="equal">
+                      <Form.Input
+                        placeholder="Duration in Hours"
+                        label="Duration"
+                        onChange={(event) => setDuration(event.target.value)}
+                      />
+
+                      <Form.Input
+                        placeholder="Date"
+                        label="Date of Training"
+                        type="date"
+                        onChange={(event) => setDate(event.target.value)}
+                      />
+                    </Form.Group>
+
+                    <Button
+                      floated="right"
+                      type="submit"
+                      color="green"
+                      width={4}
+                      style={{ margin: "10px 0px" }}
+                    >
+                      Save
+                    </Button>
+                  </Form>
+                </div>
+              </div>
             )}
-          </Form>
-        </Grid.Column>
-        <Grid.Column width={8}>
-          <AddSession id={id} submit={submit} />
-        </Grid.Column>
-      </Grid>
+          </Grid.Column>
+        </Grid>
+      </div>
     </div>
   );
 };

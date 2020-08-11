@@ -7,17 +7,18 @@ const SessionCard = (props) => {
     >
       <div style={{ position: "absolute", left: "70px", textAlign: "left" }}>
         <p style={{ fontSize: "14pt", color: "grey" }}>
-          12:30 PM<br></br>
+          {props.data.Time}
+          <br></br>
           <p style={{ margin: "10px 0px", color: "black" }}>
-            Understanding Basics of NodeJS
+            {props.data.Name}
           </p>
         </p>
 
         <p style={{ fontSize: "12pt" }}>
           <ul>
-            <li>Learn about Database</li>
-            <li>Learn about Node</li>
-            <li>BAsic of Node</li>
+            {props.data.Subtopics.topics.map((list, index) => {
+              return <li>{list}</li>;
+            })}
           </ul>
         </p>
       </div>
