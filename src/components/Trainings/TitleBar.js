@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Rating } from "react";
 import {
   Header,
   Icon,
@@ -9,6 +9,8 @@ import {
   Button,
   Dropdown,
   Checkbox,
+  Container,
+  Card,
 } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 import ParticipatedPrograms from "./ParticipatedPrograms";
@@ -16,6 +18,7 @@ import AllPrograms from "./AllPrograms";
 import AdminPrograms from "./AdminPrograms";
 import { useQuery } from "@apollo/react-hooks";
 import { GET_ENROLLED } from "../../graphql/queries";
+import "./Trainings.css";
 
 const TitleBar = (props) => {
   const id = props.user["ID"];
@@ -40,7 +43,63 @@ const TitleBar = (props) => {
 
   return (
     <div>
-      <Grid style={{ paddingTop: "50px", paddingLeft: " 60px" }}>
+      <div
+        style={{
+          padding: "60px 0px",
+          backgroundColor: "#253c78",
+        }}
+      >
+        {enroll ? (
+          <Header size="huge" textAlign="center" inverted>
+            <Icon name="calendar" size="small" />
+            Participated Programs
+          </Header>
+        ) : (
+          <Header size="huge" textAlign="center" inverted>
+            <Icon name="calendar" size="small" />
+            Upcoming Programs
+          </Header>
+        )}
+      </div>
+      <Container>
+        {props.user["IsAdmin"] ? (
+          <Button.Group style={{ margin: "0px 40px" }}>
+            <Button color="orange">Add New Program</Button>
+            <Button>Filter</Button>
+            <Dropdown className="button icon" floating trigger={<></>}>
+              <Dropdown.Menu>
+                <Dropdown.Item text="Management" />
+                <Dropdown.Item text="Creative" />
+                <Dropdown.Item text="Coding" />
+                <Dropdown.Item text="Designing" />
+              </Dropdown.Menu>
+            </Dropdown>
+          </Button.Group>
+        ) : (
+          <div>
+            <Checkbox
+              toggle
+              label="Participated"
+              checked={enroll}
+              onChange={(event, { checked }) => {
+                toggleEnrolled(checked);
+              }}
+            />
+            <Button.Group style={{ margin: "0px 40px" }}>
+              <Button>Filter</Button>
+              <Dropdown className="button icon" floating trigger={<></>}>
+                <Dropdown.Menu>
+                  <Dropdown.Item text="Management" />
+                  <Dropdown.Item text="Creative" />
+                  <Dropdown.Item text="Coding" />
+                  <Dropdown.Item text="Designing" />
+                </Dropdown.Menu>
+              </Dropdown>
+            </Button.Group>
+          </div>
+        )}
+      </Container>
+      {/* <Grid style={{ paddingTop: "50px", paddingLeft: " 60px" }}>
         <Grid.Column width={12}>
           {enroll ? (
             <Header size="huge">
@@ -48,7 +107,7 @@ const TitleBar = (props) => {
               Participated Programs
             </Header>
           ) : (
-            <Header size="huge">
+            <Header size="huge" textAlign="center">
               <Icon name="calendar" size="small" />
               Upcoming Programs
             </Header>
@@ -92,9 +151,7 @@ const TitleBar = (props) => {
             </div>
           )}
         </Grid.Column>
-      </Grid>
-
-      <Divider style={{ margin: "30px 30px" }}></Divider>
+      </Grid> */}
 
       {props.user["IsAdmin"] ? (
         <AdminPrograms user={props.user} />

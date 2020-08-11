@@ -1,5 +1,13 @@
 import React from "react";
-import { Card, Icon, Grid, Divider, Button, Rating } from "semantic-ui-react";
+import {
+  Card,
+  Icon,
+  Grid,
+  Divider,
+  Button,
+  Rating,
+  Popup,
+} from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 import { MARK_ENROLLED } from "../../graphql/mutations";
 import { useMutation } from "@apollo/react-hooks";
@@ -41,84 +49,205 @@ const TrainingCard = (props) => {
   }
 
   return (
-    <div
-      style={{
-        border: "0.25px solid lightgrey",
-        borderRadius: "10px",
-        width: "350px",
-        margin: "20px 40px",
-      }}
-    >
-      <div style={{ margin: "20px" }}>
-        <Grid columns={2}>
-          <Grid.Column>
-            <h5 style={{ color: "grey" }}>{props.prog.Categories}</h5>
-          </Grid.Column>
-          <Grid.Column>
-            <Rating icon="star" defaultRating={3} maxRating={4} />
-          </Grid.Column>
-        </Grid>
+    <div>
+      <Popup
+        position="right center"
+        trigger={
+          <div className="card">
+            <div className="cardHeader">
+              <div className="cardTitle">{props.prog.Name}</div>
+              <p className="cardSubHeader">{props.prog.Categories}</p>
+              <div
+                className="ui star rating newstar"
+                role="radiogroup"
+                tabindex="-1"
+              >
+                <i
+                  tabindex="0"
+                  aria-checked="false"
+                  aria-posinset="1"
+                  aria-setsize="4"
+                  className="active icon"
+                  role="radio"
+                ></i>
+                <i
+                  tabindex="0"
+                  aria-checked="false"
+                  aria-posinset="2"
+                  aria-setsize="4"
+                  className="active icon"
+                  role="radio"
+                ></i>
+                <i
+                  tabindex="0"
+                  aria-checked="true"
+                  aria-posinset="3"
+                  aria-setsize="4"
+                  className="active icon"
+                  role="radio"
+                ></i>
+                <i
+                  tabindex="0"
+                  aria-checked="false"
+                  aria-posinset="4"
+                  aria-setsize="4"
+                  className="icon"
+                  role="radio"
+                ></i>
+              </div>
+            </div>
+            <div className="cardContentHeader">Duration</div>
+            <div className="cardContent">{props.prog.Duration}</div>
+            <div className="cardContentHeader" style={{ marginTop: "280px" }}>
+              Date
+            </div>
+            <div className="cardContent" style={{ marginTop: "300px" }}>
+              {day}
+              {month}
+            </div>
+            <div
+              className="cardContentHeader"
+              style={{ marginTop: "260px", marginLeft: "220px" }}
+            >
+              <img src="https://img.icons8.com/ios/60/000000/code.png" />
+            </div>
+            {props.isAdmin ? (
+              <div style={{ margin: "20px" }}>
+                <Button.Group floated="right">
+                  <Button style={{ marginTop: "340px", zIndex: "1" }}>
+                    View Details
+                  </Button>
+                  <Button
+                    icon
+                    style={{
+                      marginTop: "340px",
+                      zIndex: "1",
+                      marginLeft: "10px",
+                    }}
+                  >
+                    <Icon name="pencil" />
+                  </Button>
+                </Button.Group>
+              </div>
+            ) : props.isEnrolled ? (
+              <div>
+                <Button
+                  floated="right"
+                  style={{
+                    marginTop: "380px",
+                    zIndex: "1",
+                    marginRight: "10px",
+                  }}
+                >
+                  View Details
+                </Button>
+              </div>
+            ) : (
+              <div>
+                <Button
+                  floated="right"
+                  style={{
+                    marginTop: "380px",
+                    zIndex: "1",
+                    marginRight: "10px",
+                  }}
+                  onClick={() => OnParticipate(props.prog.ID)}
+                >
+                  Participate
+                </Button>
+              </div>
+            )}
+          </div>
+        }
+      >
+        <Popup.Header>Description</Popup.Header>
+        <Popup.Content>{props.prog.Description}</Popup.Content>
+      </Popup>
 
-        <h2>{props.prog.Name}</h2>
-        <p style={{ fontSize: "12pt" }}>{props.prog.Description}</p>
-        <Grid columns="equal">
-          <Grid.Column>
-            <p style={{ fontSize: "8pt", textAlign: "center" }}>DATE</p>
-            <h5
-              style={{
-                textAlign: "center",
-                marginTop: "10px",
-              }}
-            >
-              {day} {month}
-            </h5>
-          </Grid.Column>
-          <Grid.Column>
-            <p style={{ fontSize: "8pt", textAlign: "center" }}>DURATION</p>
-            <h5
-              style={{
-                textAlign: "center",
-                marginTop: "10px",
-              }}
-            >
-              {props.prog.Duration}
-            </h5>
-          </Grid.Column>
-          <Grid.Column>
-            <p style={{ fontSize: "8pt", textAlign: "center" }}>
-              CATEGORY{" "}
-              <Icon name="code" size="big" style={{ marginTop: "10px" }}></Icon>
-            </p>
-          </Grid.Column>
-        </Grid>
-        {props.isAdmin ? (
-          <div>
-            <Button fluid color="red" style={{ marginTop: "20px" }}>
-              View Details
-            </Button>
-            <Button fluid color="green" style={{ marginTop: "10px" }}>
-              Edit
-            </Button>
-          </div>
-        ) : props.isEnrolled ? (
-          <div>
-            <Button fluid color="red" style={{ marginTop: "20px" }}>
-              View Details
-            </Button>
-          </div>
-        ) : (
-          <div>
-            <Button
-              fluid
-              color="blue"
-              style={{ marginTop: "20px" }}
-              onClick={() => OnParticipate(props.prog.ID)}
-            >
-              Participate
-            </Button>
-          </div>
-        )}
-      </div>
+      {/* <div
+        style={{
+          border: "0.25px solid lightgrey",
+          borderRadius: "10px",
+          width: "350px",
+          margin: "20px 40px",
+          backgroundColor: "white",
+        }}
+      >
+        <div style={{ margin: "20px" }}>
+          <Grid columns={2}>
+            <Grid.Column>
+              <h5 style={{ color: "grey" }}>{props.prog.Categories}</h5>
+            </Grid.Column>
+            <Grid.Column>
+              <Rating icon="star" defaultRating={3} maxRating={4} />
+            </Grid.Column>
+          </Grid>
+
+          <h2>{props.prog.Name}</h2>
+          <p style={{ fontSize: "12pt" }}>{props.prog.Description}</p>
+          <Grid columns="equal">
+            <Grid.Column>
+              <p style={{ fontSize: "8pt", textAlign: "center" }}>DATE</p>
+              <h5
+                style={{
+                  textAlign: "center",
+                  marginTop: "10px",
+                }}
+              >
+                {day} {month}
+              </h5>
+            </Grid.Column>
+            <Grid.Column>
+              <p style={{ fontSize: "8pt", textAlign: "center" }}>DURATION</p>
+              <h5
+                style={{
+                  textAlign: "center",
+                  marginTop: "10px",
+                }}
+              >
+                {props.prog.Duration}
+              </h5>
+            </Grid.Column>
+            <Grid.Column>
+              <p style={{ fontSize: "8pt", textAlign: "center" }}>
+                CATEGORY{" "}
+                <Icon
+                  name="code"
+                  size="big"
+                  style={{ marginTop: "10px" }}
+                ></Icon>
+              </p>
+            </Grid.Column>
+          </Grid>
+          {props.isAdmin ? (
+            <div>
+              <Button fluid color="red" style={{ marginTop: "20px" }}>
+                View Details
+              </Button>
+              <Button fluid color="green" style={{ marginTop: "10px" }}>
+                Edit
+              </Button>
+            </div>
+          ) : props.isEnrolled ? (
+            <div>
+              <Button fluid color="red" style={{ marginTop: "20px" }}>
+                View Details
+              </Button>
+            </div>
+          ) : (
+            <div>
+              <Button
+                fluid
+                color="blue"
+                style={{ marginTop: "20px" }}
+                onClick={() => OnParticipate(props.prog.ID)}
+              >
+                Participate
+              </Button>
+            </div>
+          )}
+        </div>
+      </div> */}
     </div>
   );
 };

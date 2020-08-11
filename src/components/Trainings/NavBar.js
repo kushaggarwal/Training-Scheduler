@@ -4,7 +4,7 @@ import "semantic-ui-css/semantic.min.css";
 
 const NavBar = (props) => {
   return (
-    <div style={{ backgroundColor: "#0d47a1" }}>
+    <div style={{ backgroundColor: "white" }}>
       <Grid columns="equal">
         <Grid.Column width={13}>
           <Item.Group>

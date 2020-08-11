@@ -10,30 +10,17 @@ import {
   TextArea,
 } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
+import SessionList from "./SessionList";
 import { useMutation } from "@apollo/react-hooks";
 import { ADD_PROGRAM_SECTION } from "../../graphql/mutations.js";
 
 const AddSession = (props) => {
   const [open, setOpen] = React.useState(false);
-  const [sessions, setSessions] = React.useState();
+  const [sessions, setSessions] = React.useState([]);
   const [subtopics, setSubtopics] = React.useState();
   const [Name, setName] = React.useState();
   const [Time, setTime] = React.useState();
   const [addProgramSection] = useMutation(ADD_PROGRAM_SECTION);
-  // const [count, setCount] = React.useState(1);
-
-  // function AddSubtopic() {
-  //   setCount(count + 1);
-  //   setSubtopics([count, ...subtopics]);
-  //   console.log(count);
-  // }
-
-  // function RemoveSubtopic() {
-  //   setCount(count - 1);
-  //   subtopics.pop();
-  //   setSubtopics(subtopics);
-  //   console.log(count);
-  // }
 
   function handleSubmit() {
     let values = subtopics.split("\n");
@@ -46,6 +33,8 @@ const AddSession = (props) => {
         topics: values,
       },
     };
+    setSessions([variables, ...sessions]);
+    console.log(sessions);
     console.log(variables);
     addProgramSection({ variables });
   }
@@ -60,7 +49,15 @@ const AddSession = (props) => {
           <Modal
             closeIcon
             open={open}
-            trigger={<Button color="red">Add Session</Button>}
+            trigger={
+              props.submit ? (
+                <Button color="red">Add Session</Button>
+              ) : (
+                <Button color="red" disabled>
+                  Add Session
+                </Button>
+              )
+            }
             onClose={() => setOpen(false)}
             onOpen={() => setOpen(true)}
           >
@@ -88,24 +85,6 @@ const AddSession = (props) => {
                   placeholder="Subtopics"
                   onChange={(event) => setSubtopics(event.target.value)}
                 />
-                {/* <Button.Group style={{ margin: "10px 0px" }}>
-                  <Button circular icon="add" onClick={() => AddSubtopic()} />
-                  <Button
-                    circular
-                    icon="minus"
-                    onClick={() => RemoveSubtopic()}
-                  />
-                </Button.Group> */}
-                {/* {subtopics.map((item, index) => {
-                  return (
-                    <div>
-                      <Form.Input placeholder="Subtopic" />
-                      <Button color="blue" style={{ marginBottom: "10px" }}>
-                        Add
-                      </Button>
-                    </div>
-                  );
-                })} */}
                 <Button color="green" type="submit" Icon="tick">
                   Save
                 </Button>
@@ -115,8 +94,8 @@ const AddSession = (props) => {
         </Grid.Column>
       </Grid>
       {sessions ? (
-        <Header as="h1" style={{ textAlign: "center", marginTop: "100px" }}>
-          Session Added
+        <Header as="h1" style={{ textAlign: "center", marginTop: "20px" }}>
+          <SessionList id={parseInt(props.id)} />
         </Header>
       ) : (
         <Header as="h3" style={{ textAlign: "center", marginTop: "100px" }}>

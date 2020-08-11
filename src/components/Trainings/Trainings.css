@@ -1,0 +1,78 @@
+.card {
+  margin: 30px;
+  width: 330px;
+  height: 433px;
+  background-color: #fffefe;
+  border: 1px solid #b1b0b0;
+  box-sizing: border-box;
+}
+.cardHeader {
+  position: absolute;
+  width: 330px;
+  height: 180px;
+  background-color: #2b59c3;
+}
+.cardHeader:after {
+  position: absolute;
+  content: "";
+  background: inherit;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transform-origin: bottom left;
+  transform: skewY(10deg);
+}
+
+.cardTitle {
+  position: absolute;
+  margin-top: 30px;
+  margin-left: 20px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 30px;
+  color: #fffdfd;
+  z-index: 1;
+}
+
+.cardSubHeader {
+  position: absolute;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 14px;
+  line-height: 19px;
+  margin-top: 100px;
+  margin-left: 20px;
+  color: #fffcfc;
+  z-index: 1;
+}
+.newstar {
+  position: absolute;
+  z-index: 1;
+  margin-top: 130px;
+  margin-left: 20px;
+}
+
+.cardContentHeader {
+  position: absolute;
+  z-index: 1;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 25px;
+  margin-top: 220px;
+  margin-left: 20px;
+  color: #626262;
+}
+
+.cardContent {
+  position: absolute;
+  z-index: 1;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 25px;
+  margin-top: 240px;
+  margin-left: 20px;
+}

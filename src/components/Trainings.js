@@ -25,7 +25,7 @@ const Trainings = () => {
 
   return (
     <div>
-      <NavBar UserName={user["UserName"]} />
+      {/* <NavBar UserName={user["UserName"]} /> */}
       <TitleBar user={user} />
     </div>
   );

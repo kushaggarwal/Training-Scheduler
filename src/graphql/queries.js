@@ -71,3 +71,13 @@ export const GET_TRAINING_BY_ID = gql`
     }
   }
 `;
+
+export const GET_SECTION_BY_ID = gql`
+  query($Training_ID: Int!) {
+    Section(where: { Training_ID: { _in: $Training_ID } }) {
+      Name
+      Time
+      Subtopics
+    }
+  }
+`;

@@ -110,7 +110,7 @@ const Description = () => {
           </Form>
         </Grid.Column>
         <Grid.Column width={8}>
-          <AddSession id={id} />
+          <AddSession id={id} submit={submit} />
         </Grid.Column>
       </Grid>
     </div>
