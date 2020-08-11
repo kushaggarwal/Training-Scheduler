@@ -44,3 +44,24 @@ export const ADD_TRAINING = gql`
     }
   }
 `;
+
+export const ADD_PROGRAM_SECTION = gql`
+  mutation(
+    $Training_ID: Int!
+    $Name: String!
+    $Time: time!
+    $Subtopics: jsonb!
+  ) {
+    insert_Section_one(
+      object: {
+        Training_ID: $Training_ID
+        Name: $Name
+        Time: $Time
+        Subtopics: $Subtopics
+      }
+    ) {
+      Training_ID
+      Name
+    }
+  }
+`;
