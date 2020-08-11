@@ -39,8 +39,6 @@ const TitleBar = (props) => {
     return <div>Something went wrong</div>;
   }
 
-  console.log(data["Users_by_pk"]["enrolled"]);
-
   return (
     <div>
       <div
@@ -61,10 +59,36 @@ const TitleBar = (props) => {
           </Header>
         )}
       </div>
-      <Container>
-        {props.user["IsAdmin"] ? (
+
+      {props.user["IsAdmin"] ? (
+        <Button.Group style={{ margin: "10px 80px" }}>
+          <Button
+            color="orange"
+            onClick={() => (window.location.pathname = "/add")}
+          >
+            Add New Program
+          </Button>
+          <Button>Filter</Button>
+          <Dropdown className="button icon" floating trigger={<></>}>
+            <Dropdown.Menu>
+              <Dropdown.Item text="Management" />
+              <Dropdown.Item text="Creative" />
+              <Dropdown.Item text="Coding" />
+              <Dropdown.Item text="Designing" />
+            </Dropdown.Menu>
+          </Dropdown>
+        </Button.Group>
+      ) : (
+        <div>
+          <Checkbox
+            toggle
+            label="Participated"
+            checked={enroll}
+            onChange={(event, { checked }) => {
+              toggleEnrolled(checked);
+            }}
+          />
           <Button.Group style={{ margin: "0px 40px" }}>
-            <Button color="orange">Add New Program</Button>
             <Button>Filter</Button>
             <Dropdown className="button icon" floating trigger={<></>}>
               <Dropdown.Menu>
@@ -75,30 +99,9 @@ const TitleBar = (props) => {
               </Dropdown.Menu>
             </Dropdown>
           </Button.Group>
-        ) : (
-          <div>
-            <Checkbox
-              toggle
-              label="Participated"
-              checked={enroll}
-              onChange={(event, { checked }) => {
-                toggleEnrolled(checked);
-              }}
-            />
-            <Button.Group style={{ margin: "0px 40px" }}>
-              <Button>Filter</Button>
-              <Dropdown className="button icon" floating trigger={<></>}>
-                <Dropdown.Menu>
-                  <Dropdown.Item text="Management" />
-                  <Dropdown.Item text="Creative" />
-                  <Dropdown.Item text="Coding" />
-                  <Dropdown.Item text="Designing" />
-                </Dropdown.Menu>
-              </Dropdown>
-            </Button.Group>
-          </div>
-        )}
-      </Container>
+        </div>
+      )}
+
       {/* <Grid style={{ paddingTop: "50px", paddingLeft: " 60px" }}>
         <Grid.Column width={12}>
           {enroll ? (

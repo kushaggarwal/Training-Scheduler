@@ -1,9 +1,19 @@
 import { gql } from "apollo-boost";
 
 export const ADD_USER = gql`
-  mutation($ID: String!, $UserName: String!, $IsAdmin: Boolean!) {
+  mutation(
+    $ID: String!
+    $UserName: String!
+    $IsAdmin: Boolean!
+    $enrolled: jsonb!
+  ) {
     insert_Users_one(
-      object: { ID: $ID, UserName: $UserName, IsAdmin: $IsAdmin }
+      object: {
+        ID: $ID
+        UserName: $UserName
+        IsAdmin: $IsAdmin
+        enrolled: $enrolled
+      }
     ) {
       ID
       UserName

@@ -7,6 +7,8 @@ import {
   Button,
   Rating,
   Popup,
+  Modal,
+  Header,
 } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 import { MARK_ENROLLED } from "../../graphql/mutations";
@@ -14,6 +16,14 @@ import { useMutation } from "@apollo/react-hooks";
 
 const TrainingCard = (props) => {
   const [markEnrolled] = useMutation(MARK_ENROLLED);
+  const [open, setOpen] = React.useState(false);
+
+  const icons = {
+    Code: "https://img.icons8.com/color/60/000000/code.png",
+    Management: "https://img.icons8.com/fluent/60/000000/time-management.png",
+    Design: "https://img.icons8.com/fluent/60/000000/design.png",
+    Creative: "https://img.icons8.com/fluent/60/000000/innovation.png",
+  };
 
   const months = [
     "any",
@@ -45,7 +55,10 @@ const TrainingCard = (props) => {
         id: array,
       },
     };
-    markEnrolled({ variables });
+    var returnedData = markEnrolled({ variables });
+    returnedData.then(() => {
+      window.location.pathname = "/trainings";
+    });
   }
 
   return (
@@ -109,14 +122,31 @@ const TrainingCard = (props) => {
               className="cardContentHeader"
               style={{ marginTop: "260px", marginLeft: "220px" }}
             >
-              <img src="https://img.icons8.com/ios/60/000000/code.png" />
+              <img src={icons[props.prog.Categories]} />
             </div>
             {props.isAdmin ? (
               <div style={{ margin: "20px" }}>
                 <Button.Group floated="right">
-                  <Button style={{ marginTop: "340px", zIndex: "1" }}>
-                    View Details
-                  </Button>
+                  <Modal
+                    closeIcon
+                    open={open}
+                    trigger={
+                      <Button style={{ marginTop: "340px", zIndex: "1" }}>
+                        View Details
+                      </Button>
+                    }
+                    onClose={() => setOpen(false)}
+                    onOpen={() => setOpen(true)}
+                  >
+                    <Header icon="list" content="Training Details" />
+                    <Modal.Content>
+                      <p>
+                        Your inbox is getting full, would you like us to enable
+                        automatic archiving of old messages?
+                      </p>
+                    </Modal.Content>
+                  </Modal>
+
                   <Button
                     icon
                     style={{

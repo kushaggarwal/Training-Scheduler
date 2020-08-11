@@ -34,19 +34,21 @@ const AddSession = (props) => {
     };
 
     console.log(variables);
-    addProgramSection({ variables });
+    var callback = addProgramSection({ variables });
+    return callback;
   }
 
   function AddAnother() {
     Save();
     setName("");
-    setTime();
     setSubtopics("");
   }
 
   function SaveAndExit() {
-    Save();
-    window.location.pathname = "/trainings";
+    var callback = Save();
+    callback.then(() => {
+      window.location.pathname = "/trainings";
+    });
   }
 
   return (
