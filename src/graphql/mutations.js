@@ -19,3 +19,28 @@ export const MARK_ENROLLED = gql`
     }
   }
 `;
+
+export const ADD_TRAINING = gql`
+  mutation(
+    $ID: Int!
+    $Name: String!
+    $Categories: String!
+    $Description: String!
+    $Date: date!
+    $Duration: String!
+  ) {
+    insert_Training_Programs_one(
+      object: {
+        ID: $ID
+        Categories: $Categories
+        Description: $Description
+        Date: $Date
+        Duration: $Duration
+        Name: $Name
+      }
+    ) {
+      ID
+      Name
+    }
+  }
+`;

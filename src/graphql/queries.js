@@ -58,3 +58,16 @@ export const GET_BOTH_TRAININGS = gql`
     }
   }
 `;
+
+export const GET_TRAINING_BY_ID = gql`
+  query($ID: Int!) {
+    Training_Programs_by_pk(ID: $ID) {
+      Categories
+      Description
+      Duration
+      ID
+      Name
+      Date
+    }
+  }
+`;

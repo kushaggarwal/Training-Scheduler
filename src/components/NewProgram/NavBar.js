@@ -7,18 +7,18 @@ const NavBar = (props) => {
     <div style={{ backgroundColor: "#0d47a1" }}>
       <Grid columns="equal">
         <Grid.Column width={13}>
-          <Item.Group>
+          <Item.Group style={{ marginTop: "20px" }}>
             <Item style={{ marginLeft: "20px" }}>
               <Item.Image
                 size="tiny"
-                src="https://img.icons8.com/plasticine/100/000000/training.png"
+                src="https://img.icons8.com/color/100/000000/add-folder.png"
               />
               <Item.Content verticalAlign="middle">
                 <Item.Header
                   as="a"
                   style={{ color: "white", fontSize: "18pt" }}
                 >
-                  Training Programs
+                  Add New Training
                 </Item.Header>
               </Item.Content>
             </Item>
