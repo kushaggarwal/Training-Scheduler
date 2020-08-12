@@ -74,7 +74,7 @@ export const GET_TRAINING_BY_ID = gql`
 
 export const GET_SECTION_BY_ID = gql`
   query($Training_ID: Int!) {
-    Section(where: { Training_ID: { _eq: $Training_ID } }) {
+    Section_List(where: { Training_ID: { _eq: $Training_ID } }) {
       Name
       Subtopics
       Time

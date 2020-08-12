@@ -16,7 +16,12 @@ const SessionList = (props) => {
   if (loading)
     return (
       <Dimmer active inverted>
-        <Loader size="massive" inverted content="Loading" />
+        <Loader
+          size="medium"
+          inverted
+          content="Loading"
+          style={{ marginTop: "50px" }}
+        />
       </Dimmer>
     );
   if (error) {
@@ -25,9 +30,15 @@ const SessionList = (props) => {
   }
   return (
     <div>
-      {data.Section.map((item, index) => {
-        return <SessionCard data={item} />;
-      })}
+      {data.Section_List.length ? (
+        data.Section_List.map((item, index) => {
+          return <SessionCard data={item} />;
+        })
+      ) : (
+        <Header as="h3" textAlign="center">
+          No session
+        </Header>
+      )}
     </div>
   );
 };

@@ -56,22 +56,41 @@ export const ADD_TRAINING = gql`
 `;
 
 export const ADD_PROGRAM_SECTION = gql`
-  mutation(
-    $Training_ID: Int!
-    $Name: String!
-    $Time: time!
-    $Subtopics: jsonb!
-  ) {
-    insert_Section_one(
-      object: {
-        Training_ID: $Training_ID
-        Name: $Name
-        Time: $Time
-        Subtopics: $Subtopics
-      }
+  mutation($ID: String!, $Training_ID: Int!, $Name: String!, $Time: time!) {
+    insert_Section_List_one(
+      object: { ID: $ID, Training_ID: $Training_ID, Name: $Name, Time: $Time }
     ) {
       Training_ID
       Name
+    }
+  }
+`;
+
+export const UPDATE_TRAINING_BY_ID = gql`
+  mutation(
+    $ID: Int!
+    $Name: String!
+    $Description: String!
+    $Categories: String!
+    $Date: date!
+    $Duration: String!
+  ) {
+    update_Training_Programs_by_pk(
+      pk_columns: { ID: $ID }
+      _set: { Name: $Name, Categories: $Categories, Description: $Description }
+    ) {
+      ID
+      Name
+      Description
+    }
+  }
+`;
+
+export const ADD_SUBTOPIC = gql`
+  mutation($Section_ID: String!, $Title: String!) {
+    insert_Subtopics_one(object: { Section_ID: $Section_ID, Title: $Title }) {
+      Title
+      Section_ID
     }
   }
 `;

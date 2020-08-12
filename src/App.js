@@ -6,6 +6,7 @@ import Trainings from "./components/Trainings.js";
 import client from "./graphql/client";
 import { ApolloProvider } from "@apollo/react-hooks";
 import AddProgram from "./components/NewProgram.js";
+import EditProgram from "./components/EditProgram";
 
 class App extends React.Component {
   render() {
@@ -16,6 +17,7 @@ class App extends React.Component {
             <Route path="/" exact component={Home} />
             <Route path="/trainings" exact component={Trainings} />
             <Route path="/add" exact component={AddProgram} />
+            <Route path="/:id" exact component={EditProgram} />
           </Switch>
         </BrowserRouter>
       </ApolloProvider>

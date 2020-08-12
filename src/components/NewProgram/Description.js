@@ -16,7 +16,6 @@ import "semantic-ui-css/semantic.min.css";
 import AddSession from "./AddSession";
 import { useMutation } from "@apollo/react-hooks";
 import { ADD_TRAINING } from "../../graphql/mutations";
-import PreviewCard from "./PreviewCard";
 
 var randomstring = require("randomstring");
 

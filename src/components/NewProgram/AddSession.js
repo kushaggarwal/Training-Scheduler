@@ -13,24 +13,25 @@ import "semantic-ui-css/semantic.min.css";
 import SessionList from "./SessionList";
 import { useMutation } from "@apollo/react-hooks";
 import { ADD_PROGRAM_SECTION } from "../../graphql/mutations.js";
+import Subtopic from "../Trainings/Subtopic";
 
 const AddSession = (props) => {
   const [open, setOpen] = React.useState(false);
-  const [subtopics, setSubtopics] = React.useState();
+  const [subtopics, setSubtopics] = React.useState([0]);
   const [Name, setName] = React.useState();
   const [Time, setTime] = React.useState();
+  const [count, setCount] = useState(0);
   const [addProgramSection] = useMutation(ADD_PROGRAM_SECTION);
 
   function Save() {
-    let values = subtopics.split("\n");
-    console.log(values);
     let variables = {
+      ID: props.id + Name,
       Name: Name,
       Time: Time,
       Training_ID: parseInt(props.id),
-      Subtopics: {
-        topics: values,
-      },
+      // Subtopics: {
+      //   topics: values,
+      // },
     };
 
     console.log(variables);
@@ -41,7 +42,7 @@ const AddSession = (props) => {
   function AddAnother() {
     Save();
     setName("");
-    setSubtopics("");
+    setSubtopics([0]);
   }
 
   function SaveAndExit() {
@@ -49,6 +50,15 @@ const AddSession = (props) => {
     callback.then(() => {
       window.location.pathname = "/trainings";
     });
+  }
+
+  function Addtopic() {
+    setSubtopics([count + 1, ...subtopics]);
+    console.log(subtopics);
+  }
+  function Removetopic() {
+    var array = subtopics;
+    setSubtopics(array.pop());
   }
 
   return (
@@ -82,13 +92,18 @@ const AddSession = (props) => {
             />
           </Form.Group>
           <Header as="h5">Subtopics</Header>
-          <Form.Field
+          <Button circular icon="plus" onClick={() => Addtopic()} />
+          <Button circular icon="minus" onClick={() => Removetopic()} />
+          {subtopics.map((item, index) => {
+            return <Subtopic id={props.id + Name} />;
+          })}
+          {/* <Form.Field
             id="form-textarea-control-opinion"
             control={TextArea}
             placeholder="Subtopics"
             value={subtopics}
             onChange={(event) => setSubtopics(event.target.value)}
-          />
+          /> */}
           <Button.Group floated="right" style={{ margin: "10px 0px" }}>
             <Button
               color="green"

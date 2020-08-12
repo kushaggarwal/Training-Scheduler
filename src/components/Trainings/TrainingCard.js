@@ -11,6 +11,7 @@ import {
   Header,
 } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
+import SessionList from "../NewProgram/SessionList";
 import { MARK_ENROLLED } from "../../graphql/mutations";
 import { useMutation } from "@apollo/react-hooks";
 
@@ -129,7 +130,9 @@ const TrainingCard = (props) => {
                 <Button.Group floated="right">
                   <Modal
                     closeIcon
+                    centered={false}
                     open={open}
+                    size="tiny"
                     trigger={
                       <Button style={{ marginTop: "340px", zIndex: "1" }}>
                         View Details
@@ -138,12 +141,17 @@ const TrainingCard = (props) => {
                     onClose={() => setOpen(false)}
                     onOpen={() => setOpen(true)}
                   >
-                    <Header icon="list" content="Training Details" />
-                    <Modal.Content>
-                      <p>
-                        Your inbox is getting full, would you like us to enable
-                        automatic archiving of old messages?
-                      </p>
+                    <Header
+                      style={{ backgroundColor: "#0d47a1", color: "white" }}
+                      as="h2"
+                      inverted
+                      content="Training Details"
+                      textAlign="center"
+                    />
+                    <Modal.Content scrolling>
+                      <div style={{ marginLeft: "0 auto" }}>
+                        <SessionList id={props.prog.ID} />
+                      </div>
                     </Modal.Content>
                   </Modal>
 
