@@ -1,6 +1,31 @@
 import React from "react";
+import { Dimmer, Loader, Grid } from "semantic-ui-react";
+import "semantic-ui-css/semantic.min.css";
+import { useQuery } from "@apollo/react-hooks";
+import { GET_SUBTOPIC_BY_SECTION } from "../../graphql/queries";
 
 const SessionCard = (props) => {
+  const { data, loading, error } = useQuery(GET_SUBTOPIC_BY_SECTION, {
+    variables: {
+      Section_ID: props.data.ID,
+    },
+  });
+
+  if (loading)
+    return (
+      <Dimmer active inverted>
+        <Loader
+          size="medium"
+          inverted
+          content="Loading"
+          style={{ marginTop: "50px" }}
+        />
+      </Dimmer>
+    );
+  if (error) {
+    console.log(error);
+    return <div>Something went wrong</div>;
+  }
   return (
     <div
       style={{ height: "200px", margin: "20px", borderLeft: "1px solid grey " }}
@@ -35,7 +60,7 @@ const SessionCard = (props) => {
 
         <p style={{ fontSize: "12pt" }}>
           <ul>
-            {props.data.Subtopics.topics.map((list, index) => {
+            {data.Subtopics.map((list, index) => {
               return (
                 <li
                   style={{
@@ -47,7 +72,7 @@ const SessionCard = (props) => {
                     color: "grey",
                   }}
                 >
-                  {list}
+                  {list["Title"]}
                 </li>
               );
             })}

@@ -78,6 +78,15 @@ export const GET_SECTION_BY_ID = gql`
       Name
       Subtopics
       Time
+      ID
+    }
+  }
+`;
+
+export const GET_SUBTOPIC_BY_SECTION = gql`
+  query($Section_ID: String!) {
+    Subtopics(where: { Section_ID: { _eq: $Section_ID } }) {
+      Title
     }
   }
 `;
