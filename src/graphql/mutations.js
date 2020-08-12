@@ -94,3 +94,11 @@ export const ADD_SUBTOPIC = gql`
     }
   }
 `;
+
+export const UPDATE_SUBTOPICS_BY_ID = gql`
+  mutation($ID: Int!, $Title: String!) {
+    update_Subtopics_by_pk(pk_columns: { ID: $ID }, _set: { Title: $Title }) {
+      Title
+    }
+  }
+`;

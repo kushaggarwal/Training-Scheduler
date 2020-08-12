@@ -11,20 +11,42 @@ import {
   Loader,
 } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
+import Subtopic from "./Subtopic";
+import { useQuery } from "@apollo/react-hooks";
+import { GET_SUBTOPIC_BY_SECTION } from "../../graphql/queries";
 
 const SessionForm = (props) => {
+  const { data, loading, error } = useQuery(GET_SUBTOPIC_BY_SECTION, {
+    variables: {
+      Section_ID: props.item.ID,
+    },
+  });
+
   const [subtopics, setSubtopics] = React.useState();
   const [Name, setName] = React.useState();
   const [Time, setTime] = React.useState();
-  var subtopic = "";
+
   useEffect(() => {
     setName(props.item.Name);
     setTime(props.item.Time);
-    setSubtopics(props.item.Subtopics);
-    // props.item.Subtopics.topics.map((topic,index)=>{
-
-    // })
   }, []);
+
+  if (loading)
+    return (
+      <Dimmer active inverted>
+        <Loader
+          size="medium"
+          inverted
+          content="Loading"
+          style={{ marginTop: "50px" }}
+        />
+      </Dimmer>
+    );
+  if (error) {
+    console.log(error);
+    return <div>Something went wrong</div>;
+  }
+
   return (
     <Form style={{ margin: "30px", marginBottom: "90px" }}>
       <Form.Group widths="equal">
@@ -43,14 +65,9 @@ const SessionForm = (props) => {
         />
       </Form.Group>
       <Header as="h5">Subtopics</Header>
-      <Form.Input placeholder="Subtopic" value="One /n" id="newform" />
-      {/* <Form.Field
-        id="form-textarea-control-opinion"
-        control={TextArea}
-        placeholder="Subtopics"
-        value="eknkekb<br>cmekbmkelb"
-        onChange={(event) => setSubtopics(event.target.value)}
-      /> */}
+      {data.Subtopics.map((list, index) => {
+        return <Subtopic subtopic={list} />;
+      })}
       <Button.Group floated="right" style={{ margin: "10px 0px" }}>
         <Button
           color="green"
@@ -58,11 +75,11 @@ const SessionForm = (props) => {
           Icon="tick"
           style={{ marginRight: "10px" }}
         >
-          Add Another
+          Save
         </Button>
 
         <Button color="red" type="submit" Icon="tick">
-          Save and Exit
+          Delete
         </Button>
       </Button.Group>
     </Form>

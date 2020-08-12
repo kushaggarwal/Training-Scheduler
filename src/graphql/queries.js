@@ -87,6 +87,7 @@ export const GET_SUBTOPIC_BY_SECTION = gql`
   query($Section_ID: String!) {
     Subtopics(where: { Section_ID: { _eq: $Section_ID } }) {
       Title
+      ID
     }
   }
 `;
