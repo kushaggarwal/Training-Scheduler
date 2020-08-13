@@ -9,6 +9,7 @@ import {
   Button,
   Dimmer,
   Loader,
+  Message,
 } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 import { GET_TRAINING_BY_ID } from "../../graphql/queries";
@@ -23,6 +24,7 @@ const EditDescription = (props) => {
   const [Duration, setDuration] = useState("");
   const [Date, setDate] = useState();
   const [updateTraining] = useMutation(UPDATE_TRAINING_BY_ID);
+  const [message, setMessage] = useState(false);
 
   const { data, loading, error } = useQuery(GET_TRAINING_BY_ID, {
     variables: { ID: props.id },
@@ -45,6 +47,10 @@ const EditDescription = (props) => {
   ];
 
   function handleSubmit() {
+    setMessage(true);
+    setTimeout(() => {
+      setMessage(false);
+    }, 1000);
     const variables = {
       Name: Name,
       Categories: Category,
@@ -76,6 +82,12 @@ const EditDescription = (props) => {
   return (
     <div>
       <div>
+        {message ? (
+          <Message positive>
+            <Message.Header>Changes Updated</Message.Header>
+          </Message>
+        ) : null}
+
         <Header
           style={{
             fontFamily: "Avenir",

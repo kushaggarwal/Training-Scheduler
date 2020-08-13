@@ -11,6 +11,7 @@ import {
   Checkbox,
   Container,
   Card,
+  Message,
 } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 import ParticipatedPrograms from "./ParticipatedPrograms";
@@ -27,6 +28,11 @@ const TitleBar = (props) => {
   });
 
   const [enroll, toggleEnrolled] = useState(false);
+
+  function logout() {
+    localStorage.clear();
+    window.location.pathname = "/";
+  }
 
   if (loading)
     return (
@@ -63,10 +69,13 @@ const TitleBar = (props) => {
       {props.user["IsAdmin"] ? (
         <Button.Group style={{ margin: "10px 80px" }}>
           <Button
-            color="orange"
+            color="green"
             onClick={() => (window.location.pathname = "/add")}
           >
             Add New Program
+          </Button>
+          <Button color="red" onClick={() => logout()}>
+            Logout
           </Button>
         </Button.Group>
       ) : (
@@ -77,10 +86,14 @@ const TitleBar = (props) => {
               toggle
               label="Participated"
               checked={enroll}
+              style={{ marginTop: "5px", marginRight: "5px" }}
               onChange={(event, { checked }) => {
                 toggleEnrolled(checked);
               }}
             />
+            <Button color="red" onClick={() => logout()}>
+              Logout
+            </Button>
           </Button.Group>
         </div>
       )}

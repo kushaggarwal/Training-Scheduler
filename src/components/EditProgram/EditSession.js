@@ -64,8 +64,8 @@ const EditSession = (props) => {
         {sectionList.map((item, index) => {
           return (
             <div>
-              <Grid>
-                <Grid.Column width={10}>
+              <Grid style={{ backgroundColor: "#0d47a1" }}>
+                <Grid.Column width={14}>
                   <Header
                     style={{
                       fontFamily: "Avenir",
@@ -73,18 +73,18 @@ const EditSession = (props) => {
                       fontWeight: "500",
                       fontSize: "25px",
                       margin: "20px",
-                      color: "#2B59C3",
-                      marginBottom: "50px",
+                      color: "white",
+                      marginBottom: "20px",
                     }}
                   >
                     <Icon name="pencil" />
                     Edit Session
                   </Header>
                 </Grid.Column>
-                <Grid.Column width={6}>
+                <Grid.Column width={2}>
                   <Icon
                     name="close"
-                    color="red"
+                    inverted
                     size="large"
                     style={{ marginTop: "25px" }}
                     onClick={() => deleteSession(item.ID)}

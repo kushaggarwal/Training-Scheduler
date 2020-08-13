@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/react-hooks";
-import { Dimmer, Loader, Grid } from "semantic-ui-react";
+import { Dimmer, Loader, Grid, Message } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 import { GET_TRAININGS } from "../../graphql/queries";
 import { DELETE_TRAINING_BY_ID } from "../../graphql/mutations";
@@ -10,6 +10,7 @@ const AdminPrograms = (props) => {
   const { data, loading, error } = useQuery(GET_TRAININGS);
   const [deleteTrainingById] = useMutation(DELETE_TRAINING_BY_ID);
   const [trainingList, setTrainingList] = useState([]);
+  const [message, setMessage] = useState(false);
 
   function deleteTraining(ID) {
     const variables = {
@@ -20,6 +21,10 @@ const AdminPrograms = (props) => {
     console.log(trainingList);
     var deletedList = trainingList.filter((item) => item.ID !== ID);
     setTrainingList(deletedList);
+    setMessage(true);
+    setTimeout(() => {
+      setMessage(false);
+    }, 1000);
   }
 
   useEffect(() => {
@@ -40,6 +45,11 @@ const AdminPrograms = (props) => {
   }
   return (
     <div>
+      {message ? (
+        <Message negative style={{ margin: "20px 60px" }}>
+          <Message.Header>Training has been removed</Message.Header>
+        </Message>
+      ) : null}
       <Grid style={{ marginTop: "30px", marginLeft: "40px" }} columns={2}>
         {trainingList.map((item, index) => {
           return (

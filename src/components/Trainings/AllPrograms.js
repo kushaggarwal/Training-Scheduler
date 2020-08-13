@@ -34,17 +34,6 @@ const AllPrograms = (props) => {
             />
           );
         })}
-        {data["participatedTrainings"].map((item, index) => {
-          return (
-            <TrainingCard
-              enrolled={props.enrolled["id"]}
-              prog={item}
-              key={index}
-              isEnrolled={true}
-              isAdmin={props.user["IsAdmin"]}
-            />
-          );
-        })}
       </Grid>
     </div>
   );

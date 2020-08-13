@@ -9,11 +9,13 @@ import {
   Divider,
   Dimmer,
   Loader,
+  Message,
 } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 import EditSubtopic from "./EditSubtopic";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import { GET_SUBTOPIC_BY_SECTION } from "../../graphql/queries";
+import { UPDATE_SECTION_BY_ID } from "../../graphql/mutations";
 
 import Subtopic from "../Trainings/Subtopic";
 
@@ -23,11 +25,13 @@ const SessionForm = (props) => {
       Section_ID: props.item.ID,
     },
   });
+  const [updateSectionById] = useMutation(UPDATE_SECTION_BY_ID);
 
   const [Name, setName] = React.useState();
   const [Time, setTime] = React.useState();
   const [subtopic, setSubtopic] = React.useState([0]);
   const [count, setCount] = useState(0);
+  const [message, setMessage] = useState(false);
 
   useEffect(() => {
     setName(props.item.Name);
@@ -37,6 +41,19 @@ const SessionForm = (props) => {
   function Addtopic() {
     setSubtopic([count + 1, ...subtopic]);
     console.log(subtopic);
+  }
+
+  function handleSubmit() {
+    setMessage(true);
+    setTimeout(() => {
+      setMessage(false);
+    }, 1000);
+    const variables = {
+      ID: props.item.ID,
+      Name: Name,
+      Time: Time,
+    };
+    updateSectionById({ variables });
   }
 
   if (loading)
@@ -57,6 +74,11 @@ const SessionForm = (props) => {
 
   return (
     <div>
+      {message ? (
+        <Message positive style={{ margin: "30px 0px" }}>
+          <Message.Header>Changes Updated</Message.Header>
+        </Message>
+      ) : null}
       <Form style={{ margin: "30px", marginBottom: "90px" }}>
         <Form.Group widths="equal">
           <Form.Input
@@ -89,8 +111,14 @@ const SessionForm = (props) => {
         {subtopic.map((item, index) => {
           return <Subtopic id={props.item.ID} />;
         })}
-        <Button.Group floated="right" style={{ margin: "10px 0px" }}>
-          <Button color="green" type="submit" style={{ marginRight: "10px" }}>
+
+        <Button.Group style={{ margin: "20px 0px" }}>
+          <Button
+            color="green"
+            type="submit"
+            style={{ marginRight: "10px" }}
+            onClick={() => handleSubmit()}
+          >
             Save
           </Button>
           <Button

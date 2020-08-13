@@ -103,6 +103,17 @@ export const UPDATE_SUBTOPICS_BY_ID = gql`
   }
 `;
 
+export const UPDATE_SECTION_BY_ID = gql`
+  mutation($ID: String!, $Name: String!, $Time: time!) {
+    update_Section_List_by_pk(
+      pk_columns: { ID: $ID }
+      _set: { Name: $Name, Time: $Time }
+    ) {
+      Name
+    }
+  }
+`;
+
 export const DELETE_SUBTOPIC_BY_ID = gql`
   mutation($ID: Int!) {
     delete_Subtopics_by_pk(ID: $ID) {

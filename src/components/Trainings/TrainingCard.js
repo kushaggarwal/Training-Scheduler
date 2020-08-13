@@ -167,6 +167,9 @@ const TrainingCard = (props) => {
                   </Modal>
 
                   <Button
+                    onClick={() => {
+                      window.location.pathname = "/" + props.prog.ID;
+                    }}
                     icon
                     style={{
                       marginTop: "340px",
@@ -174,12 +177,7 @@ const TrainingCard = (props) => {
                       marginLeft: "10px",
                     }}
                   >
-                    <Icon
-                      name="pencil"
-                      onClick={() => {
-                        window.location.pathname = "/" + props.prog.ID;
-                      }}
-                    />
+                    <Icon name="pencil" />
                   </Button>
                 </Button.Group>
               </div>
