@@ -70,16 +70,18 @@ const TitleBar = (props) => {
           </Button>
         </Button.Group>
       ) : (
-        <div style={{ margin: "10px 80px" }}>
-          <Checkbox
-            toggle
-            label="Participated"
-            checked={enroll}
-            onChange={(event, { checked }) => {
-              toggleEnrolled(checked);
-            }}
-          />
-          <Button.Group style={{ margin: "0px 40px" }}></Button.Group>
+        <div>
+          <Button.Group style={{ margin: "10px 80px" }}>
+            {" "}
+            <Checkbox
+              toggle
+              label="Participated"
+              checked={enroll}
+              onChange={(event, { checked }) => {
+                toggleEnrolled(checked);
+              }}
+            />
+          </Button.Group>
         </div>
       )}
 

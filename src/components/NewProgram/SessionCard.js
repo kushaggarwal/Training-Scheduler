@@ -37,24 +37,23 @@ const SessionCard = (props) => {
             fontStyle: "normal",
             fontWeight: "500",
             fontSize: "20px",
-            lineHeight: "34px",
+            lineHeight: "20px",
             color: "#253C78",
             textDecoration: "bold",
           }}
         >
-          {props.data.Time}
+          {props.data.Name}
           <br></br>
           <p
             style={{
-              fontFamily: "Avenir",
               fontStyle: "normal",
               fontWeight: "500",
-              fontSize: "20px",
+              fontSize: "16px",
               lineHeight: "20px",
               color: "#253C78",
             }}
           >
-            {props.data.Name}
+            {props.data.Time}
           </p>
         </p>
 
@@ -64,11 +63,10 @@ const SessionCard = (props) => {
               return (
                 <li
                   style={{
-                    fontFamily: "Avenir",
                     fontStyle: "normal",
                     fontWeight: "500",
                     fontSize: "16px",
-                    lineHeight: "25px",
+                    lineHeight: "20px",
                   }}
                 >
                   {list["Title"]}
