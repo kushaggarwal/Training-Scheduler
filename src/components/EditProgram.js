@@ -66,7 +66,6 @@ const EditProgram = (props) => {
           menuPosition="left"
           panes={panes}
         />
-        {/* <Tab menu={{ secondary: true, pointing: true }} panes={panes} /> */}
       </div>
     </div>
   );

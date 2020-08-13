@@ -116,4 +116,3 @@ const TitleBar = (props) => {
 };
 
 export default TitleBar;
-// return <TrainingCard prog={item} isAdmin={props.user["IsAdmin"]} key={index} />;
