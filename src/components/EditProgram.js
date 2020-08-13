@@ -16,6 +16,7 @@ import {
 import "semantic-ui-css/semantic.min.css";
 import EditDescription from "./EditProgram/EditDescription";
 import EditSession from "./EditProgram/EditSession";
+import AddSession from "./NewProgram/AddSession";
 
 const EditProgram = (props) => {
   console.log(props.match.params.id);
@@ -34,6 +35,14 @@ const EditProgram = (props) => {
       render: () => (
         <Tab.Pane>
           <EditSession id={props.match.params.id} />
+        </Tab.Pane>
+      ),
+    },
+    {
+      menuItem: "Add another Session",
+      render: () => (
+        <Tab.Pane>
+          <AddSession id={props.match.params.id} />
         </Tab.Pane>
       ),
     },

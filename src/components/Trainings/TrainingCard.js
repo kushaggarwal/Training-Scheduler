@@ -69,6 +69,17 @@ const TrainingCard = (props) => {
         trigger={
           <div className="card">
             <div className="cardHeader">
+              {props.isAdmin ? (
+                <Icon
+                  className="cardSubHeader"
+                  style={{ marginLeft: "300px", marginTop: "10px" }}
+                  name="close"
+                  inverted
+                  size="large"
+                  onClick={() => props.deleteTraining(props.prog.ID)}
+                />
+              ) : null}
+
               <div className="cardTitle">{props.prog.Name}</div>
               <p className="cardSubHeader">{props.prog.Categories}</p>
               <div
@@ -148,7 +159,7 @@ const TrainingCard = (props) => {
                       content="Training Details"
                       textAlign="center"
                     />
-                    <Modal.Content scrolling>
+                    <Modal.Content>
                       <div style={{ marginLeft: "0 auto" }}>
                         <SessionList id={props.prog.ID} />
                       </div>
@@ -163,7 +174,12 @@ const TrainingCard = (props) => {
                       marginLeft: "10px",
                     }}
                   >
-                    <Icon name="pencil" />
+                    <Icon
+                      name="pencil"
+                      onClick={() => {
+                        window.location.pathname = "/" + props.prog.ID;
+                      }}
+                    />
                   </Button>
                 </Button.Group>
               </div>

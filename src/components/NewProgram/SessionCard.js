@@ -28,7 +28,7 @@ const SessionCard = (props) => {
   }
   return (
     <div
-      style={{ height: "200px", margin: "20px", borderLeft: "1px solid grey " }}
+      style={{ height: "230px", margin: "20px", borderLeft: "1px solid grey " }}
     >
       <div style={{ position: "absolute", left: "70px", textAlign: "left" }}>
         <p
@@ -67,9 +67,8 @@ const SessionCard = (props) => {
                     fontFamily: "Avenir",
                     fontStyle: "normal",
                     fontWeight: "500",
-                    fontSize: "20px",
+                    fontSize: "16px",
                     lineHeight: "25px",
-                    color: "grey",
                   }}
                 >
                   {list["Title"]}

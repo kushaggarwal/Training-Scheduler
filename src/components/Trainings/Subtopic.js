@@ -1,8 +1,12 @@
 import React, { useState } from "react";
-import { Form, Button } from "semantic-ui-react";
+import { Form, Button, Grid } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 import { useMutation } from "@apollo/react-hooks";
-import { ADD_SUBTOPIC } from "../../graphql/mutations";
+import {
+  ADD_SUBTOPIC,
+  UPDATE_SUBTOPICS_BY_ID,
+  DELETE_SUBTOPIC_BY_ID,
+} from "../../graphql/mutations";
 
 const Subtopic = (props) => {
   const [addSubtopic] = useMutation(ADD_SUBTOPIC);
@@ -18,20 +22,28 @@ const Subtopic = (props) => {
     setDisable(true);
   }
   return (
-    <Form onSubmit={handleSubmit}>
-      <Form.Input
-        placeholder="Subtopic"
-        value={value}
-        onChange={(event) => setValue(event.target.value)}
-      />
-      {disable ? (
-        <Button type="submit" disabled>
-          Add
-        </Button>
-      ) : (
-        <Button type="submit">Add</Button>
-      )}
-    </Form>
+    <Grid>
+      <Grid.Column width={12}>
+        <Form>
+          <Form.Input
+            placeholder="Subtopic"
+            value={value}
+            onChange={(event) => setValue(event.target.value)}
+          />
+        </Form>
+      </Grid.Column>
+      <Grid.Column width={4}>
+        {disable ? (
+          <Button type="submit" disabled>
+            Add
+          </Button>
+        ) : (
+          <Button type="submit" onClick={() => handleSubmit()} color="teal">
+            Add
+          </Button>
+        )}
+      </Grid.Column>
+    </Grid>
   );
 };
 

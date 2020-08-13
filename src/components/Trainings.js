@@ -13,6 +13,9 @@ const Trainings = () => {
   useEffect(() => {
     var currentUser = localStorage.getItem("userObject");
     setUser(JSON.parse(currentUser));
+    if (currentUser == null) {
+      window.location.pathname = "/";
+    }
     setLoading(false);
   }, []);
 
@@ -25,7 +28,6 @@ const Trainings = () => {
 
   return (
     <div>
-      {/* <NavBar UserName={user["UserName"]} /> */}
       <TitleBar user={user} />
     </div>
   );

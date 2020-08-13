@@ -134,6 +134,15 @@ const EditDescription = (props) => {
 
           <Button
             floated="right"
+            onClick={() => (window.location.pathname = "/trainings")}
+            color="red"
+            width={4}
+            style={{ margin: "10px 10px" }}
+          >
+            Exit
+          </Button>
+          <Button
+            floated="right"
             type="submit"
             color="green"
             width={4}

@@ -29,9 +29,6 @@ const AddSession = (props) => {
       Name: Name,
       Time: Time,
       Training_ID: parseInt(props.id),
-      // Subtopics: {
-      //   topics: values,
-      // },
     };
 
     console.log(variables);
@@ -42,7 +39,7 @@ const AddSession = (props) => {
   function AddAnother() {
     Save();
     setName("");
-    setSubtopics([0]);
+    setSubtopics([]);
   }
 
   function SaveAndExit() {
@@ -55,10 +52,6 @@ const AddSession = (props) => {
   function Addtopic() {
     setSubtopics([count + 1, ...subtopics]);
     console.log(subtopics);
-  }
-  function Removetopic() {
-    var array = subtopics;
-    setSubtopics(array.pop());
   }
 
   return (
@@ -93,17 +86,11 @@ const AddSession = (props) => {
           </Form.Group>
           <Header as="h5">Subtopics</Header>
           <Button circular icon="plus" onClick={() => Addtopic()} />
-          <Button circular icon="minus" onClick={() => Removetopic()} />
+
           {subtopics.map((item, index) => {
             return <Subtopic id={props.id + Name} />;
           })}
-          {/* <Form.Field
-            id="form-textarea-control-opinion"
-            control={TextArea}
-            placeholder="Subtopics"
-            value={subtopics}
-            onChange={(event) => setSubtopics(event.target.value)}
-          /> */}
+
           <Button.Group floated="right" style={{ margin: "10px 0px" }}>
             <Button
               color="green"

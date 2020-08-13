@@ -11,9 +11,11 @@ import {
   Loader,
 } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
-import Subtopic from "./Subtopic";
-import { useQuery } from "@apollo/react-hooks";
+import EditSubtopic from "./EditSubtopic";
+import { useQuery, useMutation } from "@apollo/react-hooks";
 import { GET_SUBTOPIC_BY_SECTION } from "../../graphql/queries";
+
+import Subtopic from "../Trainings/Subtopic";
 
 const SessionForm = (props) => {
   const { data, loading, error } = useQuery(GET_SUBTOPIC_BY_SECTION, {
@@ -22,14 +24,20 @@ const SessionForm = (props) => {
     },
   });
 
-  const [subtopics, setSubtopics] = React.useState();
   const [Name, setName] = React.useState();
   const [Time, setTime] = React.useState();
+  const [subtopic, setSubtopic] = React.useState([0]);
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
     setName(props.item.Name);
     setTime(props.item.Time);
   }, []);
+
+  function Addtopic() {
+    setSubtopic([count + 1, ...subtopic]);
+    console.log(subtopic);
+  }
 
   if (loading)
     return (
@@ -37,7 +45,7 @@ const SessionForm = (props) => {
         <Loader
           size="medium"
           inverted
-          content="Loading"
+          content="Getting Data "
           style={{ marginTop: "50px" }}
         />
       </Dimmer>
@@ -48,41 +56,52 @@ const SessionForm = (props) => {
   }
 
   return (
-    <Form style={{ margin: "30px", marginBottom: "90px" }}>
-      <Form.Group widths="equal">
-        <Form.Input
-          placeholder="Name"
-          label="Session Name"
-          value={Name}
-          onChange={(event) => setName(event.target.value)}
-        />
-        <Form.Input
-          placeholder="Time"
-          label="Starting Time"
-          type="time"
-          value={Time}
-          onChange={(event) => setTime(event.target.value)}
-        />
-      </Form.Group>
-      <Header as="h5">Subtopics</Header>
-      {data.Subtopics.map((list, index) => {
-        return <Subtopic subtopic={list} />;
-      })}
-      <Button.Group floated="right" style={{ margin: "10px 0px" }}>
-        <Button
-          color="green"
-          type="submit"
-          Icon="tick"
-          style={{ marginRight: "10px" }}
-        >
-          Save
-        </Button>
+    <div>
+      <Form style={{ margin: "30px", marginBottom: "90px" }}>
+        <Form.Group widths="equal">
+          <Form.Input
+            placeholder="Name"
+            label="Session Name"
+            value={Name}
+            onChange={(event) => setName(event.target.value)}
+          />
+          <Form.Input
+            placeholder="Time"
+            label="Starting Time"
+            type="time"
+            value={Time}
+            onChange={(event) => setTime(event.target.value)}
+          />
+        </Form.Group>
+        <Header as="h5">Subtopics</Header>
 
-        <Button color="red" type="submit" Icon="tick">
-          Delete
-        </Button>
-      </Button.Group>
-    </Form>
+        {data.Subtopics.map((list, index) => {
+          return <EditSubtopic subtopic={list} Section_ID={props.item.ID} />;
+        })}
+        <Header as="h5">Add new Subtopic</Header>
+        <Button
+          circular
+          icon="plus"
+          onClick={() => Addtopic()}
+          style={{ margin: "5px 0px" }}
+        />
+
+        {subtopic.map((item, index) => {
+          return <Subtopic id={props.item.ID} />;
+        })}
+        <Button.Group floated="right" style={{ margin: "10px 0px" }}>
+          <Button color="green" type="submit" style={{ marginRight: "10px" }}>
+            Save
+          </Button>
+          <Button
+            onClick={() => (window.location.pathname = "/trainings")}
+            color="red"
+          >
+            Exit
+          </Button>
+        </Button.Group>
+      </Form>
+    </div>
   );
 };
 

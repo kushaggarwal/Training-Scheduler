@@ -1,5 +1,5 @@
 import React from "react";
-import { Dimmer, Loader, Grid } from "semantic-ui-react";
+import { Dimmer, Loader, Grid, Header } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 
 import { GET_PARTICIPATED_TRAININGS } from "../../graphql/queries";
@@ -10,7 +10,7 @@ const ParticipatedPrograms = (props) => {
   const { data, loading, error } = useQuery(GET_PARTICIPATED_TRAININGS, {
     variables: { enrolled: props.enrolled["id"] },
   });
-
+  console.log(data);
   if (loading)
     return (
       <Dimmer active inverted>
@@ -23,18 +23,24 @@ const ParticipatedPrograms = (props) => {
   }
   return (
     <div>
-      <Grid style={{ marginTop: "30px", marginLeft: "40px" }} columns={2}>
-        {data.Training_Programs.map((item, index) => {
-          return (
-            <TrainingCard
-              prog={item}
-              key={index}
-              isEnrolled={true}
-              isAdmin={props.user["IsAdmin"]}
-            />
-          );
-        })}
-      </Grid>
+      {data.Training_Programs.length ? (
+        <Grid style={{ marginTop: "30px", marginLeft: "40px" }} columns={2}>
+          {data.Training_Programs.map((item, index) => {
+            return (
+              <TrainingCard
+                prog={item}
+                key={index}
+                isEnrolled={true}
+                isAdmin={props.user["IsAdmin"]}
+              />
+            );
+          })}
+        </Grid>
+      ) : (
+        <Header as="h1" textAlign="center" style={{ marginTop: "30px" }}>
+          No Participated Events
+        </Header>
+      )}
     </div>
   );
 };

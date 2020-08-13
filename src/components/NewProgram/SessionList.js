@@ -1,8 +1,9 @@
 import React from "react";
 import { Segment, Header, Grid, List, Dimmer, Loader } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
-import { useQuery } from "@apollo/react-hooks";
+import { useQuery, useMutation } from "@apollo/react-hooks";
 import { GET_SECTION_BY_ID } from "../../graphql/queries";
+
 import SessionCard from "./SessionCard";
 
 const SessionList = (props) => {
@@ -11,7 +12,6 @@ const SessionList = (props) => {
       Training_ID: parseInt(props.id),
     },
   });
-  console.log(data);
 
   if (loading)
     return (

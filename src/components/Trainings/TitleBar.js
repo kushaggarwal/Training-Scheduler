@@ -68,18 +68,9 @@ const TitleBar = (props) => {
           >
             Add New Program
           </Button>
-          <Button>Filter</Button>
-          <Dropdown className="button icon" floating trigger={<></>}>
-            <Dropdown.Menu>
-              <Dropdown.Item text="Management" />
-              <Dropdown.Item text="Creative" />
-              <Dropdown.Item text="Coding" />
-              <Dropdown.Item text="Designing" />
-            </Dropdown.Menu>
-          </Dropdown>
         </Button.Group>
       ) : (
-        <div>
+        <div style={{ margin: "10px 80px" }}>
           <Checkbox
             toggle
             label="Participated"
@@ -88,73 +79,9 @@ const TitleBar = (props) => {
               toggleEnrolled(checked);
             }}
           />
-          <Button.Group style={{ margin: "0px 40px" }}>
-            <Button>Filter</Button>
-            <Dropdown className="button icon" floating trigger={<></>}>
-              <Dropdown.Menu>
-                <Dropdown.Item text="Management" />
-                <Dropdown.Item text="Creative" />
-                <Dropdown.Item text="Coding" />
-                <Dropdown.Item text="Designing" />
-              </Dropdown.Menu>
-            </Dropdown>
-          </Button.Group>
+          <Button.Group style={{ margin: "0px 40px" }}></Button.Group>
         </div>
       )}
-
-      {/* <Grid style={{ paddingTop: "50px", paddingLeft: " 60px" }}>
-        <Grid.Column width={12}>
-          {enroll ? (
-            <Header size="huge">
-              <Icon name="calendar" size="small" />
-              Participated Programs
-            </Header>
-          ) : (
-            <Header size="huge" textAlign="center">
-              <Icon name="calendar" size="small" />
-              Upcoming Programs
-            </Header>
-          )}
-        </Grid.Column>
-        <Grid.Column width={4}>
-          {props.user["IsAdmin"] ? (
-            <Button.Group style={{ margin: "0px 40px" }}>
-              <Button color="orange">Add New Program</Button>
-              <Button>Filter</Button>
-              <Dropdown className="button icon" floating trigger={<></>}>
-                <Dropdown.Menu>
-                  <Dropdown.Item text="Management" />
-                  <Dropdown.Item text="Creative" />
-                  <Dropdown.Item text="Coding" />
-                  <Dropdown.Item text="Designing" />
-                </Dropdown.Menu>
-              </Dropdown>
-            </Button.Group>
-          ) : (
-            <div>
-              <Checkbox
-                toggle
-                label="Participated"
-                checked={enroll}
-                onChange={(event, { checked }) => {
-                  toggleEnrolled(checked);
-                }}
-              />
-              <Button.Group style={{ margin: "0px 40px" }}>
-                <Button>Filter</Button>
-                <Dropdown className="button icon" floating trigger={<></>}>
-                  <Dropdown.Menu>
-                    <Dropdown.Item text="Management" />
-                    <Dropdown.Item text="Creative" />
-                    <Dropdown.Item text="Coding" />
-                    <Dropdown.Item text="Designing" />
-                  </Dropdown.Menu>
-                </Dropdown>
-              </Button.Group>
-            </div>
-          )}
-        </Grid.Column>
-      </Grid> */}
 
       {props.user["IsAdmin"] ? (
         <AdminPrograms user={props.user} />

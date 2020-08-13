@@ -102,3 +102,27 @@ export const UPDATE_SUBTOPICS_BY_ID = gql`
     }
   }
 `;
+
+export const DELETE_SUBTOPIC_BY_ID = gql`
+  mutation($ID: Int!) {
+    delete_Subtopics_by_pk(ID: $ID) {
+      Title
+    }
+  }
+`;
+
+export const DELETE_SECTION_BY_ID = gql`
+  mutation($ID: String!) {
+    delete_Section_List_by_pk(ID: $ID) {
+      Name
+    }
+  }
+`;
+
+export const DELETE_TRAINING_BY_ID = gql`
+  mutation($ID: Int!) {
+    delete_Training_Programs_by_pk(ID: $ID) {
+      Name
+    }
+  }
+`;
