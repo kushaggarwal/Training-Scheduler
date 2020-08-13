@@ -10,7 +10,7 @@ const ParticipatedPrograms = (props) => {
   const { data, loading, error } = useQuery(GET_PARTICIPATED_TRAININGS, {
     variables: { enrolled: props.enrolled["id"] },
   });
-  console.log(data);
+
   if (loading)
     return (
       <Dimmer active inverted>

@@ -185,16 +185,39 @@ const TrainingCard = (props) => {
               </div>
             ) : props.isEnrolled ? (
               <div>
-                <Button
-                  floated="right"
-                  style={{
-                    marginTop: "380px",
-                    zIndex: "1",
-                    marginRight: "10px",
-                  }}
+                <Modal
+                  closeIcon
+                  centered={false}
+                  open={open}
+                  size="tiny"
+                  trigger={
+                    <Button
+                      floated="right"
+                      style={{
+                        marginTop: "380px",
+                        zIndex: "1",
+                        marginRight: "10px",
+                      }}
+                    >
+                      View Details
+                    </Button>
+                  }
+                  onClose={() => setOpen(false)}
+                  onOpen={() => setOpen(true)}
                 >
-                  View Details
-                </Button>
+                  <Header
+                    style={{ backgroundColor: "#0d47a1", color: "white" }}
+                    as="h2"
+                    inverted
+                    content="Training Details"
+                    textAlign="center"
+                  />
+                  <Modal.Content>
+                    <div style={{ marginLeft: "0 auto" }}>
+                      <SessionList id={props.prog.ID} />
+                    </div>
+                  </Modal.Content>
+                </Modal>
               </div>
             ) : (
               <div>
